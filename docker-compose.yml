@@ -17,7 +17,7 @@ services:
     container_name: frontend
     restart: always
     environment:
-      - REACT_APP_BACKEND_API_URL=http://localhost:9000/api
+      - REACT_APP_BACKEND_API_URL=http://${IP}:9000/api
     ports:
       - "3000:3000"
     networks:
