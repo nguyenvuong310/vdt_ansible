@@ -1,0 +1,58 @@
+version: "3.7"
+
+services:
+  backend:
+    image: vuong676/backend-vdt:latest
+    container_name: backend
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "9000:9000"
+    networks:
+      - vdt
+
+  frontend:
+    image: vuong676/frontend-vdt:latest
+    container_name: frontend
+    restart: always
+    environment:
+      - REACT_APP_BACKEND_API_URL=http://localhost:9000/api
+    ports:
+      - "3000:3000"
+    networks:
+      - vdt
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - vdt
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - "8082:8080" # Adminer will be accessible on http://localhost:8080
+    depends_on:
+      - postgres
+    environment:
+      - ADMINER_DEFAULT_SERVER=postgres
+    networks:
+      - vdt
+
+volumes:
+  postgres:
+
+networks:
+  vdt:
+    driver: bridge
