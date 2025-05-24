@@ -1,0 +1,6 @@
+[web]
+vm1 ansible_host=192.168.1.12 ansible_user=vm1
+vm2 ansible_host=192.168.1.13 ansible_user=vm2
+
+[haproxy]
+vm3 ansible_host=192.168.1.7 ansible_user=vm3

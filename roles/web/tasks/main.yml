@@ -1,0 +1,5 @@
+---
+- name: Include web.yml
+  import_tasks: web.yml
+  tags:
+    - web

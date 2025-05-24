@@ -1,0 +1,15 @@
+---
+- hosts: web
+  become: true
+  collections:
+    - community.docker
+  vars:
+    repo_url: "https://github.com/nguyenvuong310/vdt_ansible"
+    repo_dest: "project"
+  roles:
+    - web
+
+- hosts: haproxy
+  become: true
+  roles:
+    - haproxy
